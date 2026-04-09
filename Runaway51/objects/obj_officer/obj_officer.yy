@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_officer",
+    "path":"sprites/spr_officer/spr_officer.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
