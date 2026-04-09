@@ -35,10 +35,13 @@
   },
   "name":"Runaway51",
   "resources":[
+    {"id":{"name":"obj_key","path":"objects/obj_key/obj_key.yy",},},
     {"id":{"name":"obj_officer","path":"objects/obj_officer/obj_officer.yy",},},
     {"id":{"name":"obj_platform","path":"objects/obj_platform/obj_platform.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"spr_key","path":"sprites/spr_key/spr_key.yy",},},
+    {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},},
     {"id":{"name":"spr_playerPlaceholder","path":"sprites/spr_playerPlaceholder/spr_playerPlaceholder.yy",},},
   ],
   "resourceType":"GMProject",
