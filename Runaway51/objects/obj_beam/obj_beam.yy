@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_platform",
+  "%Name":"obj_beam",
   "eventList":[],
   "managed":true,
-  "name":"obj_platform",
+  "name":"obj_beam",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_beamPlaceholder",
+    "path":"sprites/spr_beamPlaceholder/spr_beamPlaceholder.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
