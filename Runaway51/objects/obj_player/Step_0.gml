@@ -32,6 +32,7 @@ if (climbing) {
     }
 }
 
+// PLAYER MOVEMENT 
 
 	if (keyboard_check(vk_left)) {
         image_xscale = -1;
