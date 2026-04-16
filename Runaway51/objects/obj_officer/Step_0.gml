@@ -21,13 +21,23 @@ if (place_meeting(x, y + vsp, obj_wall)) {
 // UPDATE FACING DIRECTION
 // ============================================================
 if (state == OFFICER_STATE.PATROL) {
-    if (hspeed > 0) { facing = 1; image_xscale = 1; }
-    else if (hspeed < 0) { facing = -1; image_xscale = -1; }
-    else {
-        var _prev_x = xprevious;
-        if (x > _prev_x) { facing = 1; image_xscale = 1; }
-        else if (x < _prev_x) { facing = -1; image_xscale = -1; }
+    // Get the actual movement direction from the path
+    var _move_dir = 0;
+    if (path_speed > 0) {
+        // Get the next path position
+        var _next_x = path_get_x(patrol_path, path_position + 0.05);
+        if (_next_x != undefined) {
+            _move_dir = sign(_next_x - x);
+        }
     }
+    
+    if (_move_dir != 0) {
+        facing = _move_dir;
+        image_xscale = _move_dir;
+    }
+    // Keep existing facing if not moving
+} else if (state == OFFICER_STATE.CHASE) {
+    // Chase facing is already handled in the CHASE case
 }
 
 // ============================================================

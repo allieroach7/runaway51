@@ -42,3 +42,5 @@ path_add_point(patrol_path, spawn_x + 200, spawn_y, 100);
 path_set_closed(patrol_path, true);
 path_set_kind(patrol_path, 0);
 path_start(patrol_path, patrol_speed, path_action_reverse, true);
+
+
