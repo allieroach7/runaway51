@@ -1,18 +1,10 @@
-// Simple turn-around on wall collision
-
-// Move out of the wall
-while (place_meeting(x, y, obj_wall)) {
-    x -= sign(facing);
-}
-
-// Reverse direction
-facing *= -1;
-image_xscale = facing;
-
-// Stop horizontal speed
-hspeed = 0;
-
-// If using path movement, reverse the path
+// When hitting a wall, turn around in patrol state
 if (state == OFFICER_STATE.PATROL) {
-    path_speed = -path_speed;
+    patrol_direction *= -1;
+    facing = patrol_direction;
+    image_xscale = patrol_direction;
+    hspeed = patrol_speed * patrol_direction;
+    
+    // Move out of wall slightly
+    x += patrol_direction * 5;
 }

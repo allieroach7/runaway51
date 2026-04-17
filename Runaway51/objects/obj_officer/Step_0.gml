@@ -18,53 +18,80 @@ if (place_meeting(x, y + vsp, obj_wall)) {
 }
 
 // ============================================================
+// PATROL MOVEMENT (Now manual to bugfix instead of path-based)
+// ============================================================
+if (state == OFFICER_STATE.PATROL) {
+    // Move in current direction
+    hspeed = patrol_speed * patrol_direction;
+    
+    // Check if we hit a wall or reached boundary
+    var _next_x = x + hspeed;
+    
+    if (place_meeting(_next_x, y, obj_wall)) {
+        // Hit wall - turn around
+        patrol_direction *= -1;
+        hspeed = patrol_speed * patrol_direction;
+        _next_x = x + hspeed;
+    }
+    
+    // Check boundaries
+    if (_next_x > patrol_right_bound) {
+        patrol_direction = -1;
+        hspeed = patrol_speed * patrol_direction;
+        _next_x = patrol_right_bound;
+    } else if (_next_x < patrol_left_bound) {
+        patrol_direction = 1;
+        hspeed = patrol_speed * patrol_direction;
+        _next_x = patrol_left_bound;
+    }
+    
+    // Apply movement
+    x = _next_x;
+}
+
+// ============================================================
 // UPDATE FACING DIRECTION
 // ============================================================
 if (state == OFFICER_STATE.PATROL) {
-    // Get the actual movement direction from the path
-    var _move_dir = 0;
-    if (path_speed > 0) {
-        // Get the next path position
-        var _next_x = path_get_x(patrol_path, path_position + 0.05);
-        if (_next_x != undefined) {
-            _move_dir = sign(_next_x - x);
-        }
+    // Set facing based on patrol direction
+    if (patrol_direction > 0) {
+        facing = 1;
+        image_xscale = 1;   // Change to -1 if sprite faces left by default
+    } else {
+        facing = -1;
+        image_xscale = -1;  // Change to 1 if sprite faces left by default
     }
-    
-    if (_move_dir != 0) {
-        facing = _move_dir;
-        image_xscale = _move_dir;
-    }
-    // Keep existing facing if not moving
-} else if (state == OFFICER_STATE.CHASE) {
-    // Chase facing is already handled in the CHASE case
 }
 
 // ============================================================
 // DETECTION
 // ============================================================
 var _can_see = false;
-var _guard_cx = (bbox_left + bbox_right) / 2;
-var _guard_cy = (bbox_top + bbox_bottom) / 2;
+var _guard_cx = x;
+var _guard_cy = y;
 
 if (instance_exists(obj_player)) {
-    var _dist = point_distance(_guard_cx, _guard_cy, obj_player.x, obj_player.y);
+    var _player_cx = obj_player.x;
+    var _player_cy = obj_player.y;
+    var _dist = point_distance(_guard_cx, _guard_cy, _player_cx, _player_cy);
     
     if (_dist < detect_range) {
-        var _angle_to_player = point_direction(_guard_cx, _guard_cy, obj_player.x, obj_player.y);
+        var _angle_to_player = point_direction(_guard_cx, _guard_cy, _player_cx, _player_cy);
         var _look_angle = (facing == 1) ? 0 : 180;
         var _angle_diff = abs(angle_difference(_angle_to_player, _look_angle));
         
-        // Check frontal cone
+        // Frontal cone detection
         if (_angle_diff <= detect_angle) {
-            if (!collision_line(_guard_cx, _guard_cy, obj_player.x, obj_player.y, obj_wall, false, true)) {
+            if (!collision_line(_guard_cx, _guard_cy, _player_cx, _player_cy, obj_wall, false, true)) {
                 _can_see = true;
             }
         }
         
-        // Close range — detect from ANY direction
-        if (_dist < 80 && !collision_line(_guard_cx, _guard_cy, obj_player.x, obj_player.y, obj_wall, false, true)) {
-            _can_see = true;
+        // Close range detection (360 degrees)
+        if (_dist < 80) {
+            if (!collision_line(_guard_cx, _guard_cy, _player_cx, _player_cy, obj_wall, false, true)) {
+                _can_see = true;
+            }
         }
     }
 }
@@ -79,12 +106,12 @@ switch (state) {
             var _dist = point_distance(_guard_cx, _guard_cy, obj_player.x, obj_player.y);
             if (_dist < detect_range_close) {
                 state = OFFICER_STATE.CHASE;
-                path_end();
+                hspeed = 0;
             } else {
                 state = OFFICER_STATE.SUSPICIOUS;
                 suspicious_timer = suspicious_duration;
                 suspicious_look_timer = 0;
-                path_end();
+                hspeed = 0;
             }
         }
         break;
@@ -103,7 +130,9 @@ switch (state) {
                 state = OFFICER_STATE.CHASE;
             } else {
                 state = OFFICER_STATE.PATROL;
-                path_start(patrol_path, patrol_speed, path_action_reverse, true);
+                // Reset patrol direction to face original spawn direction
+                patrol_direction = 1;
+				update_patrol_boundaries();  // FIX TELEPORT
             }
         }
         
@@ -117,9 +146,7 @@ switch (state) {
 
     case OFFICER_STATE.CHASE:
         if (instance_exists(obj_player)) {
-            // Stop moving if player is invincible
             if (obj_player.invincible > 0) {
-                // Face the player but don't move
                 var _dir = sign(obj_player.x - _guard_cx);
                 if (_dir != 0) {
                     facing = _dir;
@@ -132,7 +159,8 @@ switch (state) {
             
             if (_dist > lose_range) {
                 state = OFFICER_STATE.PATROL;
-                path_start(patrol_path, patrol_speed, path_action_reverse, true);
+                patrol_direction = (obj_player.x > x) ? 1 : -1;
+				update_patrol_boundaries();  // FIX TELEPORT
                 break;
             }
             
@@ -140,8 +168,8 @@ switch (state) {
             facing = _dir;
             image_xscale = _dir;
             
-            // Don't move if very close — prevents overlapping
             if (_dist < 40) {
+                hspeed = 0;
                 break;
             }
             
@@ -152,11 +180,18 @@ switch (state) {
             if (_on_ground && _ground_ahead) {
                 if (!place_meeting(_next_x, y, obj_wall)) {
                     x = _next_x;
+                    hspeed = chase_speed * _dir;
+                } else {
+                    // Hit wall - lose interest
+                    state = OFFICER_STATE.PATROL;
+                    patrol_direction = (x > patrol_left_bound) ? -1 : 1;
+					update_patrol_boundaries();  // FIX TELEPORT
                 }
             }
         } else {
             state = OFFICER_STATE.PATROL;
-            path_start(patrol_path, patrol_speed, path_action_reverse, true);
+            patrol_direction = (x > spawn_x) ? -1 : 1;
+			update_patrol_boundaries();  // FIX TELEPORT
         }
         break;
 
@@ -165,13 +200,15 @@ switch (state) {
         stun_star_angle += 3;
         if (stun_star_angle >= 360) stun_star_angle -= 360;
         stun_z_timer++;
+        hspeed = 0;
         
         if (stun_timer <= 0) {
             stun_timer = 0;
             stun_z_timer = 0;
             stun_star_angle = 0;
             state = OFFICER_STATE.PATROL;
-            path_start(patrol_path, patrol_speed, path_action_reverse, true);
+            patrol_direction = (x > spawn_x) ? -1 : 1;
+			update_patrol_boundaries();  // FIX TELEPORT
         }
         break;
 }

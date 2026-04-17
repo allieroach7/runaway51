@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"recreate_patrol_path_at_current_position",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"recreate_patrol_path_at_current_position",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
