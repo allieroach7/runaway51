@@ -18,7 +18,7 @@ if (invincible <= 0) {
 			obj_player.player_lives -= 1; // removes 1 life when hit
 			// Check player lives when hit before ending game if 0
 			if (obj_player.player_lives <= 0) {
-				room_goto(Room2);
+				room_goto(rm_gameover);
 			}
             
             // Force immediate position change so you feel it
