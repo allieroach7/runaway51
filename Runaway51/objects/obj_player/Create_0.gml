@@ -13,3 +13,5 @@ invincible = 0;
 invincible_max = 60;
 knockback_hsp = 0;
 knockback_fric = 0.3;
+
+player_lives = 3;

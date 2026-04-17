@@ -14,6 +14,12 @@ if (invincible <= 0) {
             gravity = 0.25;
             hit_stun = hit_stun_max;
             invincible = invincible_max;
+			
+			obj_player.player_lives -= 1; // removes 1 life when hit
+			// Check player lives when hit before ending game if 0
+			if (obj_player.player_lives <= 0) {
+				room_goto(Room2);
+			}
             
             // Force immediate position change so you feel it
             if (!instance_place(x + (_knockback_dir * 30), y, obj_wall)) {
