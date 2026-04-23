@@ -1,17 +1,18 @@
-// This is cleaner than checking in Step
-restart_game();
-
-/// @description Handle restart button click
-
-// Reset player variables
-if (instance_exists(obj_player)) {
-    with (obj_player) {
-        player_lives = 3;      // Reset to starting lives
-        keys_collected = 0;    // Reset key count
-
+// Check if mouse is over the button
+if (position_meeting(mouse_x, mouse_y, id)) {
+    // Reset player variables
+    if (instance_exists(obj_player)) {
+        with (obj_player) {
+            player_lives = 3;
+            keys_collected = 0;
+        }
     }
+    
+    // Reset global game state to level 1
+    global.level = 1;
+    global.keys_needed = 2;
+    global.player_lives = 3;
+    
+    // Go to tutorial room
+    room_goto(rm_tutorial);
 }
-
-
-// Go back to tutorial
-room_goto(rm_tutorial);

@@ -37,6 +37,7 @@
   "resources":[
     {"id":{"name":"obj_beam","path":"objects/obj_beam/obj_beam.yy",},},
     {"id":{"name":"obj_button_restart","path":"objects/obj_button_restart/obj_button_restart.yy",},},
+    {"id":{"name":"obj_gameController","path":"objects/obj_gameController/obj_gameController.yy",},},
     {"id":{"name":"obj_key","path":"objects/obj_key/obj_key.yy",},},
     {"id":{"name":"obj_ladder","path":"objects/obj_ladder/obj_ladder.yy",},},
     {"id":{"name":"obj_levelExit","path":"objects/obj_levelExit/obj_levelExit.yy",},},
@@ -44,6 +45,8 @@
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"rm_gameover","path":"rooms/rm_gameover/rm_gameover.yy",},},
+    {"id":{"name":"rm_level","path":"rooms/rm_level/rm_level.yy",},},
+    {"id":{"name":"rm_levelTime","path":"rooms/rm_levelTime/rm_levelTime.yy",},},
     {"id":{"name":"rm_tutorial","path":"rooms/rm_tutorial/rm_tutorial.yy",},},
     {"id":{"name":"recreate_patrol_path_at_current_position","path":"scripts/recreate_patrol_path_at_current_position/recreate_patrol_path_at_current_position.yy",},},
     {"id":{"name":"restart_game","path":"scripts/restart_game/restart_game.yy",},},
@@ -65,6 +68,8 @@
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_tutorial","path":"rooms/rm_tutorial/rm_tutorial.yy",},},
     {"roomId":{"name":"rm_gameover","path":"rooms/rm_gameover/rm_gameover.yy",},},
+    {"roomId":{"name":"rm_level","path":"rooms/rm_level/rm_level.yy",},},
+    {"roomId":{"name":"rm_levelTime","path":"rooms/rm_levelTime/rm_levelTime.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

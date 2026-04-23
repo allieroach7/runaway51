@@ -4,8 +4,8 @@ keys_collected += 1;
 // Destroy the key instance
 instance_destroy(other);
 
-// Future code for key sound effect
-// audio_play_sound(snd_key_collect, 10, false);
+// Debug message
+show_debug_message("Keys: " + string(keys_collected) + "/" + string(global.keys_needed));
 
-// Shows a debug message
-show_debug_message("Keys collected: " + string(keys_collected));
+// Optional: Play sound
+// audio_play_sound(snd_key_collect, 10, false);
