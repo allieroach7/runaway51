@@ -22,7 +22,7 @@ if (invincible <= 0) {
 			}
             
             // Force immediate position change so you feel it
-            if (!instance_place(x + (_knockback_dir * 30), y, obj_wall)) {
+            if (!instance_place(x + (_knockback_dir * 30), y, obj_platform)) {
                 x += _knockback_dir * 30;
             }
             
@@ -40,7 +40,7 @@ if (hit_stun > 0) {
     
     // Apply knockback during stun
     if (abs(knockback_hsp) > 0.5) {
-        if (!instance_place(x + knockback_hsp, y, obj_wall)) {
+        if (!instance_place(x + knockback_hsp, y, obj_platform)) {
             x += knockback_hsp;
         } else {
             knockback_hsp = 0;
@@ -51,7 +51,7 @@ if (hit_stun > 0) {
     }
     
     // Gravity still applies
-    if (!instance_place(x, y + 1, obj_wall)) {
+    if (!instance_place(x, y + 1, obj_platform)) {
         gravity = 0.25;
     } else {
         gravity = 0;
@@ -106,7 +106,7 @@ if (climbing) {
         y += climb_speed;
     }
     
-    if (instance_place(x, y + 1, obj_wall)) {
+    if (instance_place(x, y + 1, obj_platform)) {
         climbing = false;
         sprite_index = spr_player;
     }
@@ -117,27 +117,27 @@ if (climbing) {
 // ============================================================
 if (keyboard_check(vk_left)) {
     image_xscale = -1;
-    if (!instance_place(x - move_speed, y, obj_wall)) {
+    if (!instance_place(x - move_speed, y, obj_platform)) {
         x -= move_speed;
     }
 }
 
 if (keyboard_check(vk_right)) {
     image_xscale = 1;
-    if (!instance_place(x + move_speed, y, obj_wall)) {
+    if (!instance_place(x + move_speed, y, obj_platform)) {
         x += move_speed;
     }
 }
 
 // Jumping
 if (keyboard_check(vk_up)) {
-    if (instance_place(x, y + 1, obj_wall)) {
+    if (instance_place(x, y + 1, obj_platform)) {
         vspeed = jump_height;
     }
 }
 
 // Gravity
-if (instance_place(x, y + 1, obj_wall)) {
+if (instance_place(x, y + 1, obj_platform)) {
     gravity = 0;
 } else {
     gravity = 0.25;

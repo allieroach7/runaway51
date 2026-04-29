@@ -7,7 +7,7 @@ if (life_timer <= 0 || x < 0 || x > room_width) {
     instance_destroy();
 }
 
-if (place_meeting(x, y, obj_wall)) {
+if (place_meeting(x, y, obj_platform)) {
     instance_destroy();
 }
 
@@ -21,6 +21,6 @@ if (life_timer <= 0 || x < 0 || x > room_width) {
     instance_destroy();
 }
 
-if (place_meeting(x, y, obj_wall)) {
+if (place_meeting(x, y, obj_platform)) {
     instance_destroy();
 }

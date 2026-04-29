@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ladderPlaceholder",
-    "path":"sprites/spr_ladderPlaceholder/spr_ladderPlaceholder.yy",
+    "name":"spr_ladder",
+    "path":"sprites/spr_ladder/spr_ladder.yy",
   },
   "spriteMaskId":null,
   "visible":true,

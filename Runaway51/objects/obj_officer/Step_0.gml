@@ -1,15 +1,15 @@
 // ============================================================
 // GRAVITY
 // ============================================================
-if (!place_meeting(x, y + 1, obj_wall)) {
+if (!place_meeting(x, y + 1, obj_platform)) {
     vsp += grav;
     if (vsp > max_fall) vsp = max_fall;
 } else {
     if (vsp > 0) vsp = 0;
 }
 
-if (place_meeting(x, y + vsp, obj_wall)) {
-    while (!place_meeting(x, y + sign(vsp), obj_wall)) {
+if (place_meeting(x, y + vsp, obj_platform)) {
+    while (!place_meeting(x, y + sign(vsp), obj_platform)) {
         y += sign(vsp);
     }
     vsp = 0;
@@ -27,7 +27,7 @@ if (state == OFFICER_STATE.PATROL) {
     // Check if we hit a wall or reached boundary
     var _next_x = x + hspeed;
     
-    if (place_meeting(_next_x, y, obj_wall)) {
+    if (place_meeting(_next_x, y, obj_platform)) {
         // Hit wall - turn around
         patrol_direction *= -1;
         hspeed = patrol_speed * patrol_direction;
@@ -82,14 +82,14 @@ if (instance_exists(obj_player)) {
         
         // Frontal cone detection
         if (_angle_diff <= detect_angle) {
-            if (!collision_line(_guard_cx, _guard_cy, _player_cx, _player_cy, obj_wall, false, true)) {
+            if (!collision_line(_guard_cx, _guard_cy, _player_cx, _player_cy, obj_platform, false, true)) {
                 _can_see = true;
             }
         }
         
         // Close range detection (360 degrees)
         if (_dist < 80) {
-            if (!collision_line(_guard_cx, _guard_cy, _player_cx, _player_cy, obj_wall, false, true)) {
+            if (!collision_line(_guard_cx, _guard_cy, _player_cx, _player_cy, obj_platform, false, true)) {
                 _can_see = true;
             }
         }
@@ -174,11 +174,11 @@ switch (state) {
             }
             
             var _next_x = x + (chase_speed * _dir);
-            var _on_ground = place_meeting(x, y + 1, obj_wall);
-            var _ground_ahead = place_meeting(_next_x, y + 1, obj_wall);
+            var _on_ground = place_meeting(x, y + 1, obj_platform);
+            var _ground_ahead = place_meeting(_next_x, y + 1, obj_platform);
             
             if (_on_ground && _ground_ahead) {
-                if (!place_meeting(_next_x, y, obj_wall)) {
+                if (!place_meeting(_next_x, y, obj_platform)) {
                     x = _next_x;
                     hspeed = chase_speed * _dir;
                 } else {
