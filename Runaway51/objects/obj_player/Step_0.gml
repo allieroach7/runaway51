@@ -207,8 +207,10 @@ if (keyboard_check_pressed(ord("2"))) {
 // Press 3 — Skip to next level
 if (keyboard_check_pressed(ord("3"))) {
     if (room == rm_tutorial) {
+        global.keys_needed = 2;
         room_goto(rm_level);
     } else if (room == rm_level) {
+        global.keys_needed = 6;
         room_goto(rm_level2);
     } else if (room == rm_level2) {
         room_goto(rm_win);
