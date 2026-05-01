@@ -1,3 +1,38 @@
+// --- ALERT BORDER EFFECT ---
+if (alert_intensity > 0) {
+    var _w = display_get_gui_width();
+    var _h = display_get_gui_height();
+    var _border = 60;
+    var _alpha = alert_intensity * 0.6;
+    
+    draw_set_colour(c_dkgray);
+    draw_set_alpha(_alpha);
+    
+    // Top border
+    draw_rectangle(0, 0, _w, _border, false);
+    // Bottom border
+    draw_rectangle(0, _h - _border, _w, _h, false);
+    // Left border
+    draw_rectangle(0, 0, _border, _h, false);
+    // Right border
+    draw_rectangle(_w - _border, 0, _w, _h, false);
+    
+    // Inner red glow
+    draw_set_colour(c_red);
+    draw_set_alpha(_alpha * 0.5);
+    
+    // Top inner
+    draw_rectangle(0, _border, _w, _border + 30, false);
+    // Bottom inner
+    draw_rectangle(0, _h - _border - 30, _w, _h - _border, false);
+    // Left inner
+    draw_rectangle(_border, 0, _border + 30, _h, false);
+    // Right inner
+    draw_rectangle(_w - _border - 30, 0, _w - _border, _h, false);
+    
+    draw_set_alpha(1);
+    draw_set_colour(c_white);
+}
 // Draw player lives
 for (var i = 0; i < player_lives; i++) {
     draw_sprite(spr_player, 0, 20 + (i * 48), 20);

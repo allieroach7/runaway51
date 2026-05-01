@@ -1,3 +1,7 @@
+
+if (!variable_global_exists("loading")) {
+    global.loading = false;
+}
 // Initialize ALL global variables
 global.level = 1;
 global.keys_needed = 2;  // Level 1 needs 2 keys

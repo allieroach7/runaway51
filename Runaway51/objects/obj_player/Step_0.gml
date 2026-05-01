@@ -236,3 +236,43 @@ if (keyboard_check_pressed(ord("5"))) {
 if (keyboard_check_pressed(ord("6"))) {
     room_goto(rm_gameover);
 }
+
+// Press 7 — Save game
+if (keyboard_check_pressed(ord("7"))) {
+    var _file = file_text_open_write("savegame.txt");
+    file_text_write_real(_file, room);
+    file_text_writeln(_file);
+    file_text_write_real(_file, player_lives);
+    file_text_writeln(_file);
+    file_text_write_real(_file, keys_collected);
+    file_text_writeln(_file);
+    file_text_write_real(_file, global.keys_needed);
+    file_text_close(_file);
+    show_debug_message("Game saved! Room: " + room_get_name(room) + " Lives: " + string(player_lives) + " Keys: " + string(keys_collected));
+}
+
+// Press 8 — Load game
+if (keyboard_check_pressed(ord("8"))) {
+    if (file_exists("savegame.txt")) {
+        var _file = file_text_open_read("savegame.txt");
+        var _saved_room = file_text_read_real(_file);
+        file_text_readln(_file);
+        var _lives = file_text_read_real(_file);
+        file_text_readln(_file);
+        var _keys = file_text_read_real(_file);
+        file_text_readln(_file);
+        var _keys_needed = file_text_read_real(_file);
+        file_text_close(_file);
+        
+        global.player_lives = _lives;
+        global.keys_needed = _keys_needed;
+        
+        // Store in global so player can pick them up after room change
+        global.load_lives = _lives;
+        global.load_keys = _keys;
+        global.loading = true;
+        
+        room_goto(_saved_room);
+        show_debug_message("Game loaded!");
+    }
+}

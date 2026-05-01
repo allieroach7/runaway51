@@ -7,10 +7,10 @@ void main()
 {
     vec4 col = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
     
-    // Red alert tint based on intensity
-    col.r *= 1.0 + (0.4 * u_intensity);
-    col.g *= 1.0 - (0.3 * u_intensity);
-    col.b *= 1.0 - (0.3 * u_intensity);
+    // Strong red alert tint
+    col.r *= 1.0 + (0.8 * u_intensity);
+    col.g *= 1.0 - (0.5 * u_intensity);
+    col.b *= 1.0 - (0.5 * u_intensity);
     
     gl_FragColor = col;
 }

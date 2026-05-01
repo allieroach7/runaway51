@@ -46,3 +46,11 @@ show_debug_message("Player created - Level: " + string(global.level) +
 				   
 alert_intensity = 0;
 u_alert_intensity = shader_get_uniform(shd_alert, "u_intensity");
+
+// Check if loading a saved game
+if (variable_global_exists("loading") && global.loading) {
+    player_lives = global.load_lives;
+    keys_collected = global.load_keys;
+    global.loading = false;
+    show_debug_message("Save data applied! Lives: " + string(player_lives) + " Keys: " + string(keys_collected));
+}
