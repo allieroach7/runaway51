@@ -43,3 +43,6 @@ knockback_fric = 0.3;
 show_debug_message("Player created - Level: " + string(global.level) + 
                    ", Keys Needed: " + string(global.keys_needed) + 
                    ", Lives: " + string(player_lives));
+				   
+alert_intensity = 0;
+u_alert_intensity = shader_get_uniform(shd_alert, "u_intensity");

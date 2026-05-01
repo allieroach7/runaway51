@@ -24,6 +24,10 @@ if (invincible <= 0) {
             // Force immediate position change so you feel it
             if (!instance_place(x + (_knockback_dir * 30), y, obj_platform)) {
                 x += _knockback_dir * 30;
+				// Player hit particles
+if (instance_exists(obj_particle_manager)) {
+    part_particles_create(obj_particle_manager.hit_ps, x, y, obj_particle_manager.hit_pt, 15);
+}
             }
             
             show_debug_message("KNOCKBACK! Dir: " + string(_knockback_dir) + " | Stun: " + string(hit_stun));
@@ -146,6 +150,34 @@ if (instance_place(x, y + 1, obj_platform)) {
 // Speed limit
 if (vspeed > 12) vspeed = 12;
 
+
+// --- CAMERA FOLLOW ---
+if (view_enabled) {
+    var _cam = view_camera[0];
+    var _cx = x - (camera_get_view_width(_cam) / 2);
+    var _cy = y - (camera_get_view_height(_cam) / 2);
+    
+    _cx = clamp(_cx, 0, room_width - camera_get_view_width(_cam));
+    _cy = clamp(_cy, 0, room_height - camera_get_view_height(_cam));
+    
+    camera_set_view_pos(_cam, _cx, _cy);
+}
+
+// --- ALERT SHADER ---
+// Check if any officer is chasing
+var _any_chasing = false;
+with (obj_officer) {
+    if (state == OFFICER_STATE.CHASE) {
+        _any_chasing = true;
+        break;
+    }
+}
+
+if (_any_chasing) {
+    alert_intensity = min(alert_intensity + 0.05, 1.0);
+} else {
+    alert_intensity = max(alert_intensity - 0.03, 0);
+}
 // ============================================================
 // ALIEN BEAM ATTACK (Q key)
 // ============================================================
@@ -157,4 +189,48 @@ if (keyboard_check_pressed(ord("Q")) && beam_cooldown <= 0) {
     _beam.beam_dir = _facing;
     _beam.image_xscale = _facing;
     beam_cooldown = beam_cooldown_max;
+}
+
+
+// --- CHEAT CODES (for testing) ---
+
+// Press 1 — Full lives
+if (keyboard_check_pressed(ord("1"))) {
+    player_lives = 3;
+}
+
+// Press 2 — Collect all keys
+if (keyboard_check_pressed(ord("2"))) {
+    keys_collected = global.keys_needed;
+}
+
+// Press 3 — Skip to next level
+if (keyboard_check_pressed(ord("3"))) {
+    if (room == rm_tutorial) {
+        room_goto(rm_level);
+    } else if (room == rm_level) {
+        room_goto(rm_level2);
+    } else if (room == rm_level2) {
+        room_goto(rm_win);
+    }
+}
+// Press 4 — Stun all guards
+if (keyboard_check_pressed(ord("4"))) {
+    with (obj_officer) {
+        state = OFFICER_STATE.INCAPACITATED;
+        stun_timer = stun_duration;
+        path_end();
+        hspeed = 0;
+        vsp = 0;
+    }
+}
+
+// Press 5 — Instant win
+if (keyboard_check_pressed(ord("5"))) {
+    room_goto(rm_win);
+}
+
+// Press 6 — Instant game over
+if (keyboard_check_pressed(ord("6"))) {
+    room_goto(rm_gameover);
 }
