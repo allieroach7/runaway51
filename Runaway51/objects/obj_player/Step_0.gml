@@ -134,6 +134,14 @@ if (keyboard_check(vk_right)) {
     }
 }
 
+if (keyboard_check(vk_left) || keyboard_check(vk_right)) {
+    image_speed = 1; // Play animation while a key is held
+} else {
+    image_speed = 0; // Stop animation when no keys are held
+    image_index = 0; // Optional: Force the 'standing' frame
+}
+
+
 // Jumping
 if (keyboard_check(vk_up)) {
     if (instance_place(x, y + 1, obj_platform)) {
