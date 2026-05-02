@@ -33,12 +33,13 @@ Collect the required keys, avoid guards, and reach the exit. You lose a life whe
 ## 4. Project Theme
 Runaway 51 leans into an Area 51 escape theme by casting the player as a trapped alien breaking out of a secret facility. The title screen, jail and lab-style backgrounds, guard patrols, key-gated exits, stun beam, and red alert shader all reinforce the sense of a tense breakout. Each room increases pressure as the alien moves deeper through the base, collecting access keys while staying ahead of security.
 
-## 5. Graduate-Level Features (ITCS 5230)
-* **Smart AI (3 points):** Implemented in `objects/obj_officer/Create_0.gml` and `objects/obj_officer/Step_0.gml`. The officer uses an `OFFICER_STATE` enum with `PATROL`, `SUSPICIOUS`, `CHASE`, and `INCAPACITATED` states, plus detection ranges and timers. Patrol helper logic is supported by `scripts/update_patrol_boundaries/update_patrol_boundaries.gml` and `scripts/recreate_patrol_path_at_current_position/recreate_patrol_path_at_current_position.gml`.
-* **Object Inheritance (3 points):** `objects/obj_officer/obj_officer.yy` inherits from `objects/obj_enemy_parent/obj_enemy_parent.yy`. Shared enemy motion is initialized in `objects/obj_enemy_parent/Create_0.gml` and `objects/obj_enemy_parent/Step_0.gml`, and the officer calls `event_inherited()`.
-* **Views (2 points):** Camera follow logic is in `objects/obj_player/Step_0.gml`. When views are enabled, the camera is moved with `camera_set_view_pos()` to follow the player during gameplay rooms.
-* **Shader (4 points):** The alert shader is defined in `shaders/shd_alert/shd_alert.fsh` and `shaders/shd_alert/shd_alert.vsh`. It is applied in `objects/obj_player/Draw_0.gml`, with the border glow drawn in `objects/obj_player/Draw_64.gml` when a guard is chasing.
-* **Advanced Feature 1 - Particles:** Particle systems are created in `objects/obj_particle_manager/Create_0.gml` and cleaned up in `objects/obj_particle_manager/CleanUp_0.gml`. Beam hit particles, player hit particles, and key collect particles are triggered from `objects/obj_officer/Collision_obj_beam.gml`, `objects/obj_player/Step_0.gml`, and `objects/obj_player/Collision_obj_key.gml`.
-* **Advanced Feature 2 - File Save/Load:** Save and load are implemented in `objects/obj_player/Step_0.gml` using `file_text_open_write()`, `file_text_open_read()`, and `savegame.txt`. The save data stores the room, player lives, collected keys, and key requirement.
+## Graduate-Level Features (ITCS 5230)
+
+- Smart AI : Guard uses a 4-state FSM (Patrol, Suspicious, Chase, Incapacitated) with detection cone, line of sight, and close-range hearing. (obj_officer)
+- Object Inheritance : obj_enemy_parent handles shared enemy gravity and physics. obj_officer inherits and adds patrol/chase behavior.
+- Views : Camera follows the player in gameplay rooms using camera_set_view_pos. (obj_player Step Event)
+- Shader : shd_alert applies red tint to player and dark border glow on screen when a guard is chasing. (obj_player Draw and Draw GUI Events)
+- Particles : Three particle effects — green burst on beam hit, red burst when player is hit, gold sparkle on key collect. (obj_particle_manager)
+- File Save/Load : Press 7 to save progress (room, lives, keys) to file. Press 8 to load. (obj_player Step Event)
 
 ## 6. Licensing Information
