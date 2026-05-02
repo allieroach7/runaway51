@@ -43,3 +43,27 @@ Runaway 51 leans into an Area 51 escape theme by casting the player as a trapped
 - File Save/Load : Press 7 to save progress (room, lives, keys) to file. Press 8 to load. (obj_player Step Event)
 
 ## 6. Licensing Information
+
+All game art was done by either Summer Lewin-Staley or Allison Roach.
+
+Sounds:
+
+8-bit Game Over Sound/Tune by EVRetro -- https://freesound.org/s/533034/
+ -- License: Creative Commons 0
+
+Blaster pew by hotpin7 -- https://freesound.org/s/819682/
+ -- License: Creative Commons 0
+
+5 Chiptunes (Action) by Juhani Junkala - https://opengameart.org/content/5-chiptunes-action - License: Creative Commons 0
+
+Cartoon, Stunned 01.wav by LilMati -- https://freesound.org/s/455216/
+ -- License: Creative Commons 0
+
+Retro, Coin 06.wav by LilMati -- https://freesound.org/s/515736/
+ -- License: Creative Commons 0
+
+Hurt05.wav by jeremysykes -- https://freesound.org/s/344523/
+ -- License: Creative Commons 0
+
+
+
