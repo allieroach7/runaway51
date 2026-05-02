@@ -14,6 +14,7 @@ if (invincible <= 0) {
             gravity = 0.25;
             hit_stun = hit_stun_max;
             invincible = invincible_max;
+			audio_play_sound(snd_hurt,8,false)
 			
 			obj_player.player_lives -= 1; // removes 1 life when hit
 			// Check player lives when hit before ending game if 0
@@ -209,11 +210,16 @@ if (keyboard_check_pressed(ord("3"))) {
     if (room == rm_tutorial) {
         global.keys_needed = 2;
         room_goto(rm_level);
+		audio_stop_all()
+		audio_play_sound(snd_level2,1,true)
     } else if (room == rm_level) {
         global.keys_needed = 6;
+		audio_stop_all()
         room_goto(rm_level2);
+		audio_play_sound(snd_level3,1,true)
     } else if (room == rm_level2) {
         room_goto(rm_win);
+		audio_stop_all()
     }
 }
 // Press 4 — Stun all guards
@@ -230,11 +236,14 @@ if (keyboard_check_pressed(ord("4"))) {
 // Press 5 — Instant win
 if (keyboard_check_pressed(ord("5"))) {
     room_goto(rm_win);
+	audio_stop_all()
 }
 
 // Press 6 — Instant game over
 if (keyboard_check_pressed(ord("6"))) {
     room_goto(rm_gameover);
+	audio_stop_all()
+	audio_play_sound(snd_die,2,false)
 }
 
 // Press 7 — Save game

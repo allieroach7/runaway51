@@ -14,6 +14,8 @@ if (position_meeting(_mouse_x, _mouse_y, id)) {
 	global.level = 1;
 	global.keys_needed = 2;
 	global.player_lives = 3;
+	audio_stop_all()
+	audio_play_sound(snd_gameplay,1,true)
         restart_game();
     }
 } else {
@@ -34,6 +36,8 @@ if (keyboard_check_pressed(ord("R"))) {
     global.keys_needed = 2;
     global.player_lives = 3;
     room_goto(rm_tutorial);
+	audio_stop_all()
+	audio_play_sound(snd_gameplay,1,true)
 }
 
 // Update scale based on state

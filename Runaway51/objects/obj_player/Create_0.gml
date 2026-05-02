@@ -30,7 +30,7 @@ climbing = false;
 // ============================================================
 // COMBAT VARIABLES
 // ============================================================
-beam_cooldown = 0;
+beam_cooldown = 3;
 beam_cooldown_max = 10;
 hit_stun = 0;
 hit_stun_max = 30;
@@ -38,6 +38,8 @@ invincible = 0;
 invincible_max = 60;
 knockback_hsp = 0;
 knockback_fric = 0.3;
+
+audio_stop_sound(snd_titlescreen)
 
 // Debug
 show_debug_message("Player created - Level: " + string(global.level) + 

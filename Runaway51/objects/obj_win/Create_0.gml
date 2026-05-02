@@ -7,3 +7,6 @@ pulse_timer = 0;
 win_text = "YOU ESCAPED!";
 subtitle_text = "Congratulations! You've successfully escaped Area 51.";
 restart_text = "Click the button below to play again!";
+
+
+audio_stop_all()

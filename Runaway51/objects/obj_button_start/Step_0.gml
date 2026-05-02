@@ -24,6 +24,7 @@ if (position_meeting(mouse_x, mouse_y, id)) {
         }
         
         room_goto(rm_tutorial);
+		audio_play_sound(snd_gameplay,2,true)
     }
 } else {
     if (is_hovered) {

@@ -10,3 +10,7 @@ press_scale = 0.95;
 normal_alpha = 1;
 hover_alpha = 0.9;
 press_alpha = 0.7;
+
+audio_stop_all()
+
+audio_play_sound(snd_die,3,false)

@@ -6,6 +6,7 @@ if (position_meeting(mouse_x, mouse_y, id)) {
     global.level = 1;
     global.keys_needed = 2;
     global.player_lives = 3;
+
     
     if (instance_exists(obj_player)) {
         with (obj_player) {

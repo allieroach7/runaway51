@@ -30,6 +30,7 @@ if (mouse_x > button_x && mouse_x < button_x + button_width &&
         
         // Go back to title screen
         room_goto(rm_titleScreen);
+		
     }
 } else {
     if (is_hovered) {

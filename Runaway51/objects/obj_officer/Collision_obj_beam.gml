@@ -14,3 +14,5 @@ if (instance_exists(obj_particle_manager)) {
 with (other) {
     instance_destroy();
 }
+
+audio_play_sound(snd_stun,5,false)
