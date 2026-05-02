@@ -31,7 +31,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.222",
+    "IDEVersion":"2024.14.2.213",
   },
   "name":"Runaway51",
   "resources":[
@@ -74,6 +74,7 @@
     {"id":{"name":"snd_titlescreen","path":"sounds/snd_titlescreen/snd_titlescreen.yy",},},
     {"id":{"name":"spr_background","path":"sprites/spr_background/spr_background.yy",},},
     {"id":{"name":"spr_beamPlaceholder","path":"sprites/spr_beamPlaceholder/spr_beamPlaceholder.yy",},},
+    {"id":{"name":"spr_cryingcat","path":"sprites/spr_cryingcat/spr_cryingcat.yy",},},
     {"id":{"name":"spr_gameOver","path":"sprites/spr_gameOver/spr_gameOver.yy",},},
     {"id":{"name":"spr_jailBackground","path":"sprites/spr_jailBackground/spr_jailBackground.yy",},},
     {"id":{"name":"spr_key","path":"sprites/spr_key/spr_key.yy",},},

@@ -27,6 +27,10 @@ jump_height = -8;
 climb_speed = 3;
 climbing = false;
 
+sprite_index = spr_player; // Set the player sprite
+image_speed = 0;           // Start with the animation paused
+image_index = 0;  
+
 // ============================================================
 // COMBAT VARIABLES
 // ============================================================
